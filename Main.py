@@ -30,7 +30,6 @@ def do_experiment(name, row_count, col_count, episode_count, actions_per_episode
     good_pickups_sample = []
     bad_pickups_sample = []
     total_rewards = 0
-    total_varience = 0
     total_wall_hits = 0
     total_good_pickups = 0
     total_bad_pickups = 0
@@ -46,7 +45,6 @@ def do_experiment(name, row_count, col_count, episode_count, actions_per_episode
         robby.new_episode(board, starting_postition, epsilon)
         episode_value, wall_hits, good_pickups, bad_pickups = do_episode(robby, actions_per_episode, epsilon)
         total_rewards += episode_value
-        total_varience += episode_value ** 2
         total_wall_hits += wall_hits
         total_good_pickups += good_pickups
         total_bad_pickups += bad_pickups
@@ -63,8 +61,15 @@ def do_experiment(name, row_count, col_count, episode_count, actions_per_episode
     print "total good pickups: " + str(total_good_pickups)
     print "total bad pickups: " + str(total_bad_pickups)
     print name + " rewards sum " + str(total_rewards)
+    rewards_average = total_rewards/episode_count
     print name + " rewards average " + str(total_rewards/episode_count)
-    print name + " rewards standard deviation " + str(math.sqrt(total_varience/episode_count))
+    difference_sqrs = []
+    for reward in rewards_sample:
+        difference_sqr = (reward - rewards_average) ** 2
+        difference_sqrs.append(difference_sqr)
+    varience = sum(difference_sqrs)/len(rewards_sample)
+
+    print name + " rewards standard deviation " + str(varience)
     print
     print
     np.save(name, np.array(rewards_sample))
