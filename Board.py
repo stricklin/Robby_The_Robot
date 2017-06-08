@@ -31,9 +31,9 @@ class Board:
         """
         # check for walls
         if row < 0 or row >= self.row_count:
-            return 3
+            return 2
         if col < 0 or col >= self.col_count:
-            return 3
+            return 2
         return self.board[row][col]
 
     def pick_up_can(self, row, col):
