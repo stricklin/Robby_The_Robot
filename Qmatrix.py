@@ -21,18 +21,13 @@ class Qmatrix:
         self.sensor_count = sensor_count
         self.sensor_value_count = sensor_value_count
         self.action_count = action_count
-        self.state_count = self.get_state_count()
+        self.state_count = sensor_value_count ** sensor_count
         self.matrix = np.zeros((self.state_count, self.action_count))
-
-    def get_state_count(self):
-        state_count = 0
-        for sensor_index in range(1, self.sensor_count + 1):
-            state_count += self.sensor_value_count ** sensor_index
-        return state_count
 
     @ staticmethod
     def get_state_index(state):
-        return int(state[0] ** 1 + state[1] ** 2 + state[2] ** 3 + state[3] ** 4 + state[4] ** 5) - 1
+        """returns the index that corresponds with the state"""
+        return int(state[0] * 3 ** 0 + state[1] * 3 ** 1 + state[2] * 3 ** 2 + state[3] * 3 ** 3 + state[4] * 3 ** 4) - 1
 
     def get_value(self, state, action_index):
         state_index = self.get_state_index(state)

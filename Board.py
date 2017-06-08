@@ -22,9 +22,9 @@ class Board:
     def get_square(self, row, col):
         """
         get the value of a square
-        empty sqaure = 1
-        square containing can = 2
-        wall = 3
+        empty sqaure = 0
+        square containing can = 1
+        wall = 2
         :param row: the row of the square
         :param col: the column of the square
         :return: the value of the square
@@ -37,8 +37,8 @@ class Board:
         return self.board[row][col]
 
     def pick_up_can(self, row, col):
-        if self.board[row][col] == 2:
-            self.board[row][col] = 1
+        if self.board[row][col] == 1:
+            self.board[row][col] = 2
             return True
         return False
 

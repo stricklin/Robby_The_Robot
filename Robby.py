@@ -116,7 +116,7 @@ class Robby:
                 dest_row = self.row
                 dest_col = self.col - 1
 
-            if self.board.get_square(dest_row, dest_col) == 3:
+            if self.board.get_square(dest_row, dest_col) == 2:
                 # hit a wall
                 reward += -5
                 self.wall_hits += 1
