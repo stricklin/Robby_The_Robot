@@ -142,4 +142,8 @@ class Robby:
                     line.append(self.board.get_square(row, col))
             print line
         print "total reward: " + str(self.total_reward)
-        time.sleep(1)
+        # show index and match with computed index
+        state = self.sense()
+        print state
+
+        time.sleep(60)

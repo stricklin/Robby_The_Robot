@@ -27,7 +27,7 @@ class Qmatrix:
     @ staticmethod
     def get_state_index(state):
         """returns the index that corresponds with the state"""
-        return int(state[0] * 3 ** 0 + state[1] * 3 ** 1 + state[2] * 3 ** 2 + state[3] * 3 ** 3 + state[4] * 3 ** 4) - 1
+        return int(state[0] * 3 ** 0 + state[1] * 3 ** 1 + state[2] * 3 ** 2 + state[3] * 3 ** 3 + state[4] * 3 ** 4)
 
     def get_value(self, state, action_index):
         state_index = self.get_state_index(state)
@@ -44,6 +44,7 @@ class Qmatrix:
     def update(self, old_state, action_index, reward, new_state):
         state_index = self.get_state_index(old_state)
         old_value = self.matrix[state_index][action_index]
+        new_states_highest_value = self.get_highest_state_value(new_state)
         new_value = old_value + self.learning_rate *\
-                                (reward + self.discount_rate * self.get_highest_state_value(new_state)) - old_value
+                                (reward + self.discount_rate * new_states_highest_value) - old_value
         self.matrix[state_index][action_index] = new_value

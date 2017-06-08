@@ -10,14 +10,14 @@ class Board:
         self.row_count = rows
         self.col_count = columns
         self.can_prob = can_probability
-        self.board = np.ones((self.row_count, self.col_count))
+        self.board = np.zeros((self.row_count, self.col_count))
         self.place_cans()
 
     def place_cans(self):
         for row in range(self.row_count):
             for col in range(self.col_count):
                 if random.random() < self.can_prob:
-                    self.board[row][col] = 2
+                    self.board[row][col] = 1
 
     def get_square(self, row, col):
         """
@@ -38,7 +38,7 @@ class Board:
 
     def pick_up_can(self, row, col):
         if self.board[row][col] == 1:
-            self.board[row][col] = 2
+            self.board[row][col] = 0
             return True
         return False
 
