@@ -77,10 +77,10 @@ def do_experiment(name, row_count, col_count, episode_count, actions_per_episode
 
 if __name__ == "__main__":
     # epsilon starts at 1.1 because its decremented on the first pass
-    robby = do_experiment("train1", row_count=10, col_count=10, episode_count=500, actions_per_episode=20,
+    robby = do_experiment("train1", row_count=10, col_count=10, episode_count=5000, actions_per_episode=200,
                           epsilon=1.1, change_epsilon=True, learning_rate=.2, discount_rate=.9, can_probability=.5,
                           action_tax=False, testing=False, robby=None)
-    robby = do_experiment("test1", row_count=10, col_count=10, episode_count=500, actions_per_episode=20,
+    robby = do_experiment("test1", row_count=10, col_count=10, episode_count=5000, actions_per_episode=200,
                           epsilon=0, change_epsilon=False, learning_rate=.2, discount_rate=.9, can_probability=.5,
                           action_tax=False, testing=True, robby=robby)
     """
