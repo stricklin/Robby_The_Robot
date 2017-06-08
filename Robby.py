@@ -128,10 +128,10 @@ class Robby:
         self.total_reward += reward
         if self.training:
             self.qmatrix.update(old_state, action, reward, new_state)
+        if self.show_move:
+            self.display(action)
 
-    def display(self):
-        if not self.show_move:
-            return
+    def display(self, action):
         os.system('cls' if os.name == 'nt' else'clear')
         for row in range(self.board.row_count):
             line = []
@@ -144,6 +144,8 @@ class Robby:
         print "total reward: " + str(self.total_reward)
         # show index and match with computed index
         state = self.sense()
-        print state
+        print "state: " + str(state)
+        print "state index: " + str(self.qmatrix.get_state_index(state))
+        print "action: " + str(action)
 
-        time.sleep(60)
+        time.sleep(30)
