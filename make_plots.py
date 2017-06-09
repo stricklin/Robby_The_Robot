@@ -6,7 +6,7 @@ def make_plot(name):
     rewards = np.load(name)
     name = name.rstrip(".npy")
     plt.title(name + " rewards")
-    plt.plot(range(len(rewards)), rewards, 'blue', label="")
+    plt.plot(range(len(rewards) * 100), rewards, 'blue', label="")
     plt.ylabel("Total rewards")
     plt.xlabel("Episodes")
     plt.savefig(name + ".png")

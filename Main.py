@@ -25,11 +25,11 @@ def do_experiment(name, row_count, col_count, episode_count, actions_per_episode
     # initalize robby
     if not testing:
         robby = Robby(learning_rate, discount_rate, show_move=False, action_tax=action_tax)
-    reward_plots = []
-    rewards = []
-    wall_hits = []
-    good_pickups = []
-    bad_pickups = []
+    reward_plots = np.zeros(episode_count/100)
+    rewards = np.zeros(episode_count)
+    wall_hits = np.zeros(episode_count)
+    good_pickups = np.zeros(episode_count)
+    bad_pickups = np.zeros(episode_count)
     # run episodes
     for episode_index in range(episode_count):
         if change_epsilon:
@@ -41,16 +41,12 @@ def do_experiment(name, row_count, col_count, episode_count, actions_per_episode
         starting_postition = get_starting_position(row_count, col_count)
         robby.new_episode(board, starting_postition, epsilon)
         episode_value, wall_hit, good_pickup, bad_pickup = do_episode(robby, actions_per_episode, epsilon)
-        rewards.append(episode_value)
-        wall_hits.append(wall_hit)
-        good_pickups.append(good_pickup)
-        bad_pickups.append(bad_pickup)
+        rewards[episode_index] = episode_value
+        wall_hits[episode_index]= wall_hit
+        good_pickups[episode_index] = good_pickup
+        bad_pickups[episode_index] = bad_pickup
         if episode_index % 100 == 0:
-            reward_plots.append(episode_count)
-    rewards = np.array(rewards)
-    wall_hits = np.array(wall_hits)
-    good_pickups = np.array(good_pickups)
-    bad_pickups = np.array(bad_pickups)
+            reward_plots[episode_index // 100] = episode_value
     print name + " rewards " + str(rewards)
     print "wall hits: " + str(wall_hits)
     print "good pickups: " + str(good_pickups)
@@ -140,4 +136,3 @@ if __name__ == "__main__":
     robby = do_experiment("discount_rate_test1", row_count=10, col_count=10, episode_count=5000, actions_per_episode=200,
                           epsilon=0, change_epsilon=False, learning_rate=.2, discount_rate=1, can_probability=.5,
                           action_tax=False, testing=True, robby=robby)
-
