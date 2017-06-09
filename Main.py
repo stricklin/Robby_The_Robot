@@ -47,6 +47,10 @@ def do_experiment(name, row_count, col_count, episode_count, actions_per_episode
         bad_pickups.append(bad_pickup)
         if episode_index % 100 == 0:
             reward_plots.append(episode_count)
+    rewards = np.array(rewards)
+    wall_hits = np.array(wall_hits)
+    good_pickups = np.array(good_pickups)
+    bad_pickups = np.array(bad_pickups)
     print name + " rewards " + str(rewards)
     print "wall hits: " + str(wall_hits)
     print "good pickups: " + str(good_pickups)
@@ -58,15 +62,10 @@ def do_experiment(name, row_count, col_count, episode_count, actions_per_episode
     print name + " rewards sum " + str(total_rewards)
     rewards_average = total_rewards/episode_count
     print name + " rewards average " + str(rewards_average)
-    difference_sqrs = []
-    for reward in rewards:
-        difference_sqr = (reward - rewards_average) ** 2
-        difference_sqrs.append(difference_sqr)
-    varience = math.sqrt(sum(difference_sqrs)/len(rewards))
-    print name + " rewards standard deviation " + str(varience)
+    print name + " rewards standard deviation " + str(np.std(rewards))
     print
     print
-    np.save(name, np.array(rewards))
+    np.save(name, np.array(reward_plots))
     return robby
 
 if __name__ == "__main__":
