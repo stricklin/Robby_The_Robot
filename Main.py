@@ -62,7 +62,7 @@ def do_experiment(name, row_count, col_count, episode_count, actions_per_episode
     for reward in rewards:
         difference_sqr = (reward - rewards_average) ** 2
         difference_sqrs.append(difference_sqr)
-    varience = math.sqrt((difference_sqrs)/len(rewards))
+    varience = math.sqrt(sum(difference_sqrs)/len(rewards))
     print name + " rewards standard deviation " + str(varience)
     print
     print
